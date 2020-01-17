@@ -305,3 +305,44 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+
+# Halium-UT
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/system/halium/70-h870.rules:system/halium/lib/udev/rules.d/70-android.rules \
+    $(LOCAL_PATH)/system/halium/h870.conf:system/halium/etc/ubuntu-touch-session.d/h870.conf \
+    $(LOCAL_PATH)/system/halium/timekeeper.conf:system/halium/etc/init/timekeeper.conf \
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.qti_bsp.abi=1 \
+    ubuntu.widi.supported=1 \
+
+# Ubuntu
+PRODUCT_PACKAGES += \
+    libubuntu_application_api \
+    direct_ubuntu_application_sensors_c_api_for_hybris_test \
+    direct_ubuntu_application_sensors_for_hybris_test \
+    direct_ubuntu_application_gps_c_api_for_hybris_test \
+    libcameraservice \
+    libdroidmedia \
+    libcamera_compat_layer \
+    camera_service \
+    gst-droid \
+    libmedia_compat_layer \
+    libui_compat_layer \
+    libsf_compat_layer \
+    minimediaservice \
+    minisfservice \
+    libminisf \
+    libaudioflingerglue \
+    miniafservice
+
+#PRODUCT_PACKAGES += \
+    charger_res_images
+
+# Droidmedia
+MINIMEDIA_SENSORSERVER_DISABLE := 1
+
+# telepathy-ofono quirks
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.t-o.quirk.forcesink=sink.primary_output \
+    ro.t-o.quirk.forcesource=source.primary_input \

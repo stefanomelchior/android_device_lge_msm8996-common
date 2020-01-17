@@ -152,10 +152,10 @@ service thermal-engine /system/vendor/bin/thermal-engine
     socket thermal-recv-client stream 0660 system system
     socket thermal-recv-passive-client stream 0666 system system
 
-service time_daemon /system/bin/time_daemon
-    class late_start
-    user root
-    group root
+#service time_daemon /system/bin/time_daemon
+#    class late_start
+#    user root
+#    group root
 
 service adsprpcd /system/bin/adsprpcd
     class main
@@ -193,3 +193,40 @@ service mdtp_service /system/vendor/bin/mdtp_service
    class late_start
    user system
    group system
+
+service servicemanager /system/bin/servicemanager
+    class core
+    user system
+    group system readproc
+    critical
+    onrestart restart healthd
+    onrestart restart zygote
+    onrestart restart audioserver
+    onrestart restart media
+    onrestart restart surfaceflinger
+    onrestart restart inputflinger
+    onrestart restart drm
+    onrestart restart cameraserver
+    # port from sfos
+    onrestart restart miniaf
+    onrestart restart minimedia
+    onrestart restart minisf
+    writepid /dev/cpuset/system-background/tasks
+
+service minimedia /system/bin/minimediaservice
+    class main
+    user media
+    group audio camera
+    ioprio rt 4
+#   hack to make recorded video playback work
+    setenv LD_PRELOAD /system/lib/libOmxVdec.so
+
+service miniaf /system/bin/miniafservice
+    class core
+    user root
+    group audio
+
+service minisf /system/bin/minisfservice
+    class main
+    user system
+    group graphics

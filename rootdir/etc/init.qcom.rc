@@ -101,6 +101,10 @@ on boot
     chown system drmrpc /sys/devices/soc/75ba000.i2c/i2c-12/12-004a/secure_touch
     write /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/input/input0/update_fw 1
 
+    # Bring up wlan
+    write /dev/wcnss_wlan 1
+    write /sys/module/wlan/parameters/fwpath "sta"
+
     # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio
@@ -124,6 +128,9 @@ on boot
     chown system system /sys/class/leds/red/blink
     chown system system /sys/class/leds/green/blink
     chown system system /sys/class/leds/blue/blink
+    chown system system /sys/class/leds/blue/led_time
+    chown system system /sys/class/leds/green/led_time
+    chown system system /sys/class/leds/red/led_time
 
     # Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
@@ -922,11 +929,11 @@ service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqb
     group root
     disabled
 
-service qseeproxydaemon /system/vendor/bin/qseeproxydaemon
-    class late_start
-    user system
-    group system
-    writepid /dev/cpuset/system-background/tasks
+#service qseeproxydaemon /system/vendor/bin/qseeproxydaemon
+#    class late_start
+#    user system
+#    group system
+#    writepid /dev/cpuset/system-background/tasks
 
 # oneshot service that loads fpc tz app in early phase.
 service fpc_early_loader /system/bin/fpc_early_loader

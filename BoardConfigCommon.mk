@@ -45,7 +45,12 @@ TARGET_NO_BOOTLOADER := true
 
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff audit=0 selinux=0 apparmor=0
+BOARD_KERNEL_CMDLINE += datapart=/dev/sda17
+# BOARD_KERNEL_CMDLINE += systempart=/dev/sda14
+# BOARD_KERNEL_CMDLINE += datapart=/dev/disk/by-partlabel/userdata
+# BOARD_KERNEL_CMDLINE += systempart=/dev/disk/by-partlabel/system
+
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x02000000
@@ -204,6 +209,9 @@ BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_AP      := "/system/etc/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_STA     := "/system/etc/firmware/fw_bcmdhd.bin"
+
+#allow arm64 libhybris
+HYBRIS_MEDIA_32_BIT_ONLY := false
 
 # inherit from the proprietary version
 -include vendor/lge/msm8996-common/BoardConfigVendor.mk
