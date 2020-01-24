@@ -311,6 +311,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/system/halium/70-h870.rules:system/halium/lib/udev/rules.d/70-android.rules \
     $(LOCAL_PATH)/system/halium/h870.conf:system/halium/etc/ubuntu-touch-session.d/h870.conf \
     $(LOCAL_PATH)/system/halium/timekeeper.conf:system/halium/etc/init/timekeeper.conf \
+    $(LOCAL_PATH)/system/halium/apparmor.d/local/usr.bin.media-hub-server:system/halium/etc/apparmor.d/local/usr.bin.media-hub-server \
+    $(LOCAL_PATH)/system/halium/apparmor.d/abstractions/base:system/halium/etc/apparmor.d/abstractions/base \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.qti_bsp.abi=1 \
