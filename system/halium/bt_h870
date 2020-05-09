@@ -1,0 +1,36 @@
+#!/bin/sh
+
+#PATCHRAM_ARGS="-d --patchram /system/vendor/firmware/BCM4345C0.hcd \
+#               --enable_lpm \
+#               --no2bytes \
+#               --enable_hci \
+#	       --use_baudrate_for_download \
+#	       --tosleep 1000 \
+#               --baudrate 3000000"
+#
+#brcm_patchram_plus  $PATCHRAM_ARGS
+#
+#MAC_ADDR=`cat /data/misc/bluetooth/bdaddr`
+#
+#echo "0" > /sys/class/rfkill/rfkill0/state
+#echo "1" > /sys/class/rfkill/rfkill0/state
+#echo " " > /dev/ttyHS0
+#
+#hciattach -p -t 30 /dev/ttyHS0 bcm43xx 3000000 flow dbaddr $MAC_ADDR
+
+MAC_ADDR=`cat /data/misc/bluetooth/bdaddr`
+
+brcm_patchram_plus -d --patchram /vendor/firmware/BCM4345C0.hcd \
+			--baudrate 3000000 \
+			--use_baudrate_for_download \
+			--tosleep 1000 --no2bytes \
+			--enable_hci --enable_lpm \
+			--bd_addr `cat /data/misc/bluetooth/bdaddr`
+
+echo "0" > /sys/class/rfkill/rfkill0/state
+echo "1" > /sys/class/rfkill/rfkill0/state
+echo " " > /dev/ttyHS0
+
+btattach --bredr /dev/ttyHS0 -P h4 -R &
+
+exit 0

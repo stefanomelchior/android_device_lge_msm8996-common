@@ -130,6 +130,7 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     init.qcom.rc \
     init.qcom.sh \
+    init.qcom.bt.sh \
     init.qcom.sensors.sh \
     init.qcom.usb.rc \
     init.target.rc \
@@ -309,10 +310,16 @@ PRODUCT_COPY_FILES += \
 # Halium-UT
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/system/halium/70-h870.rules:system/halium/lib/udev/rules.d/70-android.rules \
+    $(LOCAL_PATH)/system/halium/BCM4345C0.hcd:system/etc/firmware/BCM4345C0.hcd \
     $(LOCAL_PATH)/system/halium/h870.conf:system/halium/etc/ubuntu-touch-session.d/h870.conf \
     $(LOCAL_PATH)/system/halium/timekeeper.conf:system/halium/etc/init/timekeeper.conf \
     $(LOCAL_PATH)/system/halium/apparmor.d/local/usr.bin.media-hub-server:system/halium/etc/apparmor.d/local/usr.bin.media-hub-server \
     $(LOCAL_PATH)/system/halium/apparmor.d/abstractions/base:system/halium/etc/apparmor.d/abstractions/base \
+    $(LOCAL_PATH)/system/halium/fix_prop.sh:system/halium/usr/share/fixup/fix_prop.sh \
+    $(LOCAL_PATH)/system/halium/switch:system/halium/usr/share/h2w/switch \
+    $(LOCAL_PATH)/system/halium/bt_h870:system/halium/usr/share/bluetooth-touch/h870 \
+    $(LOCAL_PATH)/system/halium/bluetooth-touch-android.conf:system/halium/etc/init/:system/halium/etc/init/bluetooth-touch-android.conf \
+
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.qti_bsp.abi=1 \
