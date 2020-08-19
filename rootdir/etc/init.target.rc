@@ -230,3 +230,9 @@ service minisf /system/bin/minisfservice
     class main
     user system
     group graphics
+
+service init_fix_prop /system/bin/sh system/halium/usr/share/fixup/fix_prop.sh
+    class late_start
+    user system
+    group system
+    oneshot
